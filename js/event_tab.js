@@ -1,0 +1,17 @@
+$(function(){
+	$('#dg_event').datagrid({
+		fit:true,
+		title:'Events',
+		pagination:true,
+		toolbar:[{
+			iconCls:'icon-add',
+			text:'Create'
+		},"-",{
+			iconCls:'icon-edit',
+			text:'Edit'
+		},"-",{
+			iconCls:'icon-remove',
+			text:'Remove'
+		}]
+	})
+});
