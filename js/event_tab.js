@@ -32,46 +32,98 @@ $(function(){
 
 	// NEW EVENT
 	$("#btn_event").click(function(){
-		// console.log("clicked");
 		$("#dlg_new_event").dialog('open').dialog('center');
 	});
 
 	// NEW CATEGORY
 	$("#btn_category").click(function(){
-		console.log("clicked");
+		$("#dlg_new_category").dialog('open').dialog('center');
 	});
 
 // DIALOG BOX
 
-	// TEXTBOX
-		$("#txtbx_eventname").textbox({
-			label:'Event Name',
-			labelWidth:120
-		});
+	// EVENT DIALOG BOX CONTENTS
 
-		$("#txtbx_eventdesc").textbox({
-			label:'Event Description',
-			labelWidth:120,
-			multiline:true
-		});
+		// TEXTBOX
+			$("#txtbx_eventname").textbox({
+				label:'Event Name',
+				labelWidth:120
+			});
 
-	// COMBOBOX
-		$("#cc_category").combobox({
-			label:'Category',
-			labelWidth:120,
-			valueField:'category_id',
-			textField:'category_name',
-			url:'php/cc_event_category.php',
-		});
+			$("#txtbx_eventdesc").textbox({
+				label:'Event Description',
+				labelWidth:120,
+				multiline:true
+			});
 
-	// EVENT DLG
-		$("#dlg_new_event").dialog({
-			title:'New Event',
-			closed:true,
-			modal:true,
-			width:500,
-			height:400
-		});
+		// COMBOBOX
+			$("#cc_category").combobox({
+				label:'Category',
+				labelWidth:120,
+				valueField:'category_id',
+				textField:'category_name',
+				url:'php/cc_event_category.php',
+			});
+
+		// DATEBOX
+			$("#dtbx_startdt").datetimebox({
+				label:'Start Date',
+				labelWidth:120,
+				showSeconds:false
+			}).datetimebox('setValue',' 00:00');
+
+		// EVENT DLG
+			$("#dlg_new_event").dialog({
+				title:'New Event',
+				closed:true,
+				modal:true,
+				width:500,
+				buttons:[{
+					iconCls:'icon-ok',
+					text:'Ok',
+					plain:true
+				},{
+					iconCls:'icon-cancel',
+					text:'Cancel',
+					plain:true,
+					handler:function(){
+						$("#dlg_new_event").dialog('close');
+					}
+				}]
+			});
+
+	// NEW CATEGORY DIALOG BOX CONTENTS
+		// TEXTBOX
+			$("#txtbx_categoryname").textbox({
+				label:'Category Name',
+				labelWidth:140
+			});
+
+			$("#txtbx_categorydesc").textbox({
+				label:'Category Description',
+				labelWidth:140,
+				multiline:true,
+				height:60
+			});
+		// NEW CATEGORY DLG
+			$("#dlg_new_category").dialog({
+				title:'New Category',
+				closed:false,
+				modal:true,
+				width:500,
+				buttons:[{
+					iconCls:'icon-ok',
+					text:'Ok',
+					plain:true,
+				},{
+					iconCls:'icon-cancel',
+					text:'Cancel',
+					plain:true,
+					handler:function(){
+						$("#dlg_new_category").dialog('close');
+					}
+				}]
+			});
 	
 		
 });

@@ -202,6 +202,7 @@ $(function(){
 				iconCls:'icon-ok',
 				text:'Ok',
 				size:'large',
+				plain:true,
 				handler:function(){
 					reset();
 				}
@@ -209,6 +210,7 @@ $(function(){
 				iconCls:'icon-cancel',
 				text:'Cancel',
 				size:'large',
+				plain:true,
 				handler:function(){
 					$('#dlg_transaction').dialog('close');
 				}
@@ -229,6 +231,7 @@ $(function(){
 		buttons:[{
 			iconCls:'icon-ok',
 			text:'Ok',
+			plain:true,
 			handler:function(){
 				$('#fm_pmt').form('submit',{
 					onSubmit:function(){
@@ -249,6 +252,7 @@ $(function(){
 		},{
 			iconCls:'icon-cancel',
 			text:'Cancel',
+			plain:true,
 			handler:function(){
 				$('#dlg_pmt').dialog('close');
 			}
@@ -267,12 +271,14 @@ $(function(){
 				buttons:[{
 					iconCls:'icon-ok',
 					text:'Ok',
+					plain:true,
 					handler:function(){
 						$('#dlg_pmt_cnf').dialog('close');
 					}
 				},{
 					iconCls:'icon-cancel',
 					text:'Cancel',
+					plain:true,
 					handler:function(){
 						$('#dlg_pmt_cnf').dialog('close');
 					}

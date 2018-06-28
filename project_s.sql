@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 28, 2018 at 01:17 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: Jun 28, 2018 at 10:45 PM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `event_category` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
-  `event_description` varchar(255) NOT NULL,
+  `category_description` varchar(255) NOT NULL,
   `created_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(255) NOT NULL,
   `last_updated_dt` datetime DEFAULT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `event_category` (
 -- Dumping data for table `event_category`
 --
 
-INSERT INTO `event_category` (`category_id`, `category_name`, `event_description`, `created_dt`, `created_by`, `last_updated_dt`, `last_updated_by`) VALUES
+INSERT INTO `event_category` (`category_id`, `category_name`, `category_description`, `created_dt`, `created_by`, `last_updated_dt`, `last_updated_by`) VALUES
 (1, 'SPORTS', 'Physical Activity', '2018-06-28 13:37:23', 'Admin', NULL, NULL),
 (2, 'BUWAN NG WIKA', 'Informatics Yearly Buwan ng Wika Celebration', '2018-06-28 13:37:23', 'Admin', NULL, NULL),
 (3, 'CULTURAL', 'Filipino Traditional Event', '2018-06-28 16:04:53', 'Admin', NULL, NULL),
