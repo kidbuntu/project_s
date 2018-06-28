@@ -5,9 +5,9 @@
 .txtbx{
 	width:100%;
 }
-.container{
+/*.container{
 	visibility: hidden;
-}
+}*/
 
 #loader {
   position: absolute;

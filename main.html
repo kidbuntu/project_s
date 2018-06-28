@@ -31,7 +31,7 @@
 				fit:true,
 				tabHeight:80,
 				tabWidth:120,
-				selected:0
+				selected:2
 			});	
 		});
 	</script>
@@ -142,8 +142,16 @@ border:0;
 			<!-- END OF DASHBOARD TAB -->
 
 			<!-- EVENTS TAB -->
-			<div class="gen-padding" title="<span class='tt-inner'><img src='images/event.png'/><br>Events</span>">
+			<div class="gen-padding" title="<span class='tt-inner'><img src='images/event.png'/><br>Events</span>">			
 				<table id="dg_event"></table>
+				<div id="tb_event">
+					<a href="#" id="mb_new">New</a>
+						<div id="mm_new">
+							<div>Event</div>
+							<div>Category</div>
+						</div>
+					<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">Edit</a>
+				</div>
 			</div>
 			<!-- END OF EVENTS TAB -->
 
