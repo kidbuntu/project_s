@@ -10,7 +10,7 @@ $(function(){
 	$('#tab_container').tabs({
 		fit:true,
 		tabHeight:80,
-		tabWidth:120,
+		// tabWidth:120,
 		// selected:5
 	});	
 });
