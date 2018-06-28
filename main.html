@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PROJECT S TESTING</title>
+	<title>PROJECT S</title>
 	<link rel="icon" type="text/css" href="images/new_logo.png" sizes="">    
 	<!-- <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"> -->
 	<link rel="stylesheet" type="text/css" href="easyui/themes/bootstrap/easyui.css">
@@ -147,10 +147,22 @@ border:0;
 				<div id="tb_event">
 					<a href="#" id="mb_new">New</a>
 						<div id="mm_new">
-							<div>Event</div>
-							<div>Category</div>
+							<div id="btn_event">Event</div>
+							<div id="btn_category">Category</div>
 						</div>
-					<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">Edit</a>
+						<!-- DIALOG BOX NEW EVENT -->
+						<div id="dlg_new_event" style="padding: 5px;">
+							<div style="padding-bottom: 10px;">
+								<input type="text" id="txtbx_eventname" style="width: 100%;">
+							</div>
+							<div style="padding-bottom: 10px;">
+								<input id="cc_category" name="category_id" style="width: 100%;">
+							</div>
+							<div style="padding-bottom: 10px;">
+								<input type="text" id="txtbx_eventdesc" style="width: 100%; height: 60px;">
+							</div>
+							
+						</div>
 				</div>
 			</div>
 			<!-- END OF EVENTS TAB -->

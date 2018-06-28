@@ -1,9 +1,9 @@
 $(function(){
-var data = [
-	{"event_name":"Buwan ng Wika","start_dt":"06/01/2018"},
-	{"event_name":"Leadership Training","start_dt":"06/01/2018"},
-	{"event_name":"Red Cross Blood Donation","start_dt":"06/01/2018"},
-	{"event_name":"Basic Programming Workshop","start_dt":"06/25/2018"}];
+// var data = [
+// 	{"event_name":"Buwan ng Wika","start_dt":"06/01/2018"},
+// 	{"event_name":"Leadership Training","start_dt":"06/01/2018"},
+// 	{"event_name":"Red Cross Blood Donation","start_dt":"06/01/2018"},
+// 	{"event_name":"Basic Programming Workshop","start_dt":"06/25/2018"}];
 
 // WEST REGION
 
@@ -109,9 +109,11 @@ var data = [
 				{field:'event_id',title:'Event ID',width:80,hidden:true},
 				{field:'event_name',title:'Event Name',width:80},
 				{field:'start_dt',title:'Start Date',width:80},
+				{field:'fee',title:'Fee',width:80}
 			]],
 			fitColumns:true,
-			data:data,
+			// data:data,
+			url:'php/get_events_reg.php',
 			singleSelect:true
 		});
 
@@ -184,8 +186,6 @@ var data = [
 			$('#dlg_transaction').dialog('open');	
 		}
 	});
-
-
 
 // DIALOG
 
