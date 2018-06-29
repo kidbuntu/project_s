@@ -144,41 +144,56 @@ border:0;
 			<!-- EVENTS TAB -->
 			<div class="gen-padding" title="<span class='tt-inner'><img src='images/event.png'/><br>Events</span>">			
 				<table id="dg_event"></table>
+
+				<!-- TOOLBAR -->
 				<div id="tb_event">
-					<a href="#" id="mb_new">New</a>
-						<div id="mm_new">
-							<div id="btn_event">Event</div>
+					<a href="#" id="btn_event">Create Event</a>
+					<a href="#" id="btn_edit_event">Edit</a>
+					<a href="#" id="mb_options" style="float: right;">Options</a>
+						<div id="mm_options">
 							<div id="btn_category">Category</div>
 						</div>
-					<a href="#" id="btn_edit_event">Edit</a>
-						<!-- DIALOG BOX NEW EVENT -->
-						<div id="dlg_new_event">
-							<form id="fm_event" method="post" novalidate style="margin:0;padding:20px 20px">
-								<h3>Event Information</h3>
-								<div style="padding-bottom: 10px;">
-									<input type="text" id="txtbx_eventname" name="event_name" style="width: 100%;">
-								</div>
-								<div style="padding-bottom: 10px;">
-									<input id="cc_category" name="event_category_id" style="width: 100%;">
-								</div>
-								<div style="padding-bottom: 10px;">
-									<input type="text" id="txtbx_eventdesc" name="event_description" style="width: 100%; height: 60px;">
-								</div>
-								<div style="padding-bottom: 10px;">
-									<input type="text" id="dtbx_startdt" name="start_dt" style="width: 100%;">
-								</div>
-							</form>
+				</div>
+				<!-- DIALOG BOX NEW EVENT -->
+				<div id="dlg_new_event">
+					<form id="fm_event" method="post" novalidate style="margin:0;padding:20px 20px">
+						<h3>Event Information</h3>
+						<div style="padding-bottom: 10px;">
+							<input type="text" id="txtbx_eventname" name="event_name" style="width: 100%;">
 						</div>
+						<div style="padding-bottom: 10px;">
+							<input id="cc_category" name="event_category_id" style="width: 100%;">
+						</div>
+						<div style="padding-bottom: 10px;">
+							<input type="text" id="txtbx_eventdesc" name="event_description" style="width: 100%; height: 60px;">
+						</div>
+						<div style="padding-bottom: 10px;">
+							<input type="text" id="nbrbx_fee" style="width: 100%;">
+						</div>
+						<div style="padding-bottom: 10px;">
+							<input type="text" id="dtbx_startdt" name="start_dt" style="width: 100%;">
+						</div>
+					</form>
+				</div>
 
-						<!-- DIALOG NEW CATEGORY -->
-						<div id="dlg_new_category" style="padding: 5px;">
-							<div style="padding-bottom: 10px;">
-								<input type="text" id="txtbx_categoryname" style="width: 100%;">
-							</div>
-							<div style="padding-bottom: 10px;">
-								<input type="text" id="txtbx_categorydesc" style="width: 100%;">
-							</div>
+				<!-- WINDOW PANEL CATEGORY -->
+				<div id="window_category" style="">
+					<table id="dg_category"></table>
+				</div>
+				<div id="ft_category">
+					<a href="#" id="btn_ft_close" style="float: right;">Close</a>
+				</div>
+				<!-- DIALOG NEW CATEGORY -->
+				<div id="dlg_new_category" style="padding: 5px;">
+					<form id="fm_category" method="post" novalidate style="margin: 0;padding:20px 20px;">
+						<h3>Category Information</h3>
+						<div style="padding-bottom: 10px;">
+							<input type="text" id="txtbx_categoryname" name="category_name" style="width: 100%;">
 						</div>
+						<div style="padding-bottom: 10px;">
+							<input type="text" id="txtbx_categorydesc" name="category_desc" style="width: 100%;">
+						</div>
+					</form>
 				</div>
 			</div>
 			<!-- END OF EVENTS TAB -->

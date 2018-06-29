@@ -12,4 +12,13 @@ EVENT TAB
 	- "created by" is still static
 	- "status" is still static
 	- "last updated by and last updated date still not working"
+- user can now create a new category
+- fee column added
+
+DATABASE
+
+event_header
+- fee column has now been added.
+
+
 

@@ -80,7 +80,7 @@ $(function(){
 		region:'south',
 		title:'Events',
 		border:false,
-		fit:true
+		fit:true,
 	});
 		// EVENT LIST 
 		$('#dg_reg').datagrid({
