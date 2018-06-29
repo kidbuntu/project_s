@@ -1,7 +1,7 @@
 <?php
 
 $event_name = htmlspecialchars($_REQUEST['event_name']);
-$category_id = htmlspecialchars($_REQUEST['category_name']);
+$category_id = htmlspecialchars($_REQUEST['event_category_id']);
 $event_desc = htmlspecialchars($_REQUEST['event_description']);
 $start_dt = htmlspecialchars($_REQUEST['start_dt']);
 
@@ -12,7 +12,7 @@ $result = mysqli_query($conn,$sql);
 if ($result){
 	echo json_encode(array(
 		'event_id' => mysqli_insert_id($conn),
-		'category_id' => $category_id,
+		'event_category_id' => $category_id,
 		'event_desc' => $event_desc,
 		'start_dt' => $start_dt
 	));

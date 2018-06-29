@@ -9,7 +9,7 @@ var url;
 		columns:[[
 			{field:'event_id',title:'Id',width:100},
 			{field:'event_name',title:'Name',width:100},
-			{field:'category_name',title:'Category',width:100},
+			{field:'event_category_id',title:'Category',width:100},
 			{field:'event_description',title:'Description',width:100},
 			{field:'created_by',title:'Created By',width:100},
 			{field:'created_dt',title:'Created Date',width:100},
@@ -82,7 +82,7 @@ var url;
 				label:'Category',
 				labelWidth:120,
 				required:true,
-				valueField:'category_id',
+				valueField:'category_name',
 				textField:'category_name',
 				url:'php/cc_event_category.php',
 			});

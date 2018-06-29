@@ -10,7 +10,7 @@ $sql = "select count(*) from event_header";
 $rs = mysqli_query($conn,$sql);
 $row = mysqli_fetch_row($rs);
 $result["total"] = $row[0];
-$sql = mysqli_query($conn,"SELECT eh.event_id,eh.event_name,ec.category_name,eh.event_description,eh.created_by,eh.created_dt,eh.start_dt,eh.last_updated_by,eh.last_updated_dt,eh.status FROM event_header eh INNER JOIN event_category ec ON eh.event_category_id = ec.category_id ORDER BY eh.created_dt DESC limit $offset,$rows");
+$sql = mysqli_query($conn,"SELECT event_id,event_name,event_category_id,event_description,created_by,created_dt,start_dt,last_updated_by,last_updated_dt,status FROM event_header ORDER BY created_dt DESC limit $offset,$rows");
 
 $items = array();
 
