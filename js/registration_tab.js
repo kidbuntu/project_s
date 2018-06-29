@@ -26,19 +26,11 @@ $(function(){
 	});
 
 // WEST REGION
-
-	// NAV BUTTONS PANEL
-	$('#nth').panel({
-		region:'north',
-		header:'#rg_tab_nvbtns',
-		border:false,
-		collapsible:false
-	});
 		
 	// STUDENT INFO PANEL
+	// CENTER
 	$('#ctr').panel({
 		region:'center',
-		title:'Student Information',
 		border:false,
 		header:'#rg_tab_nvbtns'
 	});
@@ -93,7 +85,6 @@ $(function(){
 				$('#fm_pmt').form('clear');
 			}
 		});
-
 	// EVENT PANEL
 	$('#sth').panel({
 		collapsible:false,
@@ -101,7 +92,6 @@ $(function(){
 		border:false,
 		fit:true,
 	});
-		
 
 // CENTER REGION
 	$('#dg_history').datagrid({
