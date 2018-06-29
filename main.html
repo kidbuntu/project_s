@@ -78,25 +78,6 @@ border:0;
 					<!-- WEST PANEL -->
 					<div data-options="region:'west', width:500">
 						<div class="container">
-							<div id="nth">
-								<!-- DIALOG BOX -->
-
-								<!-- CONFIRMATION DLG -->
-								<div id="dlg_transaction" style="font-size: 28px;"></div>
-
-								<!-- PAYMENT DLG -->
-								<div id="dlg_pmt" class="easyui-dialog" style="font-size: 28px; padding: 15px;">
-									<div class="gen-padding">
-										<form id="fm_pmt" method="post" novalidate>
-											<input id="fld_pmt_amt" class="easyui-numberbox" data-options="prompt:'Enter Payment Amount Here',fit:true,required:true">	
-										</form>
-										
-									</div>
-								</div>
-
-								<!-- PAYMENT CONFIRMATION DLG -->
-								<div id="dlg_pmt_cnf" style="font-size: 28px;"></div>
-							</div>
 							<div id="ctr" class="gen-padding">
 								<form id="ff_regtab" method="post">
 									<div class="gen-padding ff_regtab_flds">
@@ -115,6 +96,23 @@ border:0;
 										<input  name="balance" id="nbrbx_bal" type="text" style="width: 100%;">
 									</div>
 								</form>	
+
+								<!-- CONFIRMATION DLG -->
+								<div id="dlg_transaction" style="font-size: 28px;"></div>
+
+								<!-- PAYMENT DLG -->
+								<div id="dlg_pmt" class="easyui-dialog" style="font-size: 28px; padding: 15px;">
+									<div class="gen-padding">
+										<form id="fm_pmt" method="post" novalidate>
+											<input id="fld_pmt_amt" class="easyui-numberbox" data-options="prompt:'Enter Payment Amount Here',fit:true,required:true">	
+										</form>
+										
+									</div>
+								</div>
+
+								<!-- PAYMENT CONFIRMATION DLG -->
+								<div id="dlg_pmt_cnf" style="font-size: 28px;"></div>
+
 							</div>
 							<div id="sth">
 								<table id="dg_reg"></table>

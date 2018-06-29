@@ -1,9 +1,29 @@
 $(function(){
-// var data = [
-// 	{"event_name":"Buwan ng Wika","start_dt":"06/01/2018"},
-// 	{"event_name":"Leadership Training","start_dt":"06/01/2018"},
-// 	{"event_name":"Red Cross Blood Donation","start_dt":"06/01/2018"},
-// 	{"event_name":"Basic Programming Workshop","start_dt":"06/25/2018"}];
+// DATAGRID
+	// EVENT LIST 
+	$('#dg_reg').datagrid({
+		fit:true,
+		border:false,
+		toolbar:[{
+			iconCls:'icon-ok',
+			text:'Register',
+			id:'btn_register',
+			handler:function(){
+				var dg_reg = $('#dg_reg').datagrid('getSelected');
+				dlg_confirmation("Confirm Registration!<br><br><span style='font-style:italic'>"+dg_reg.event_name+"<br>Start Date: "+dg_reg.start_dt+"</span>","icon-edit");
+				$('#dlg_transaction').dialog('open');
+			}	
+		}],
+		columns:[[
+			{field:'event_id',title:'Event ID',width:80,hidden:true},
+			{field:'event_name',title:'Event Name',width:80},
+			{field:'start_dt',title:'Start Date',width:80},
+			{field:'fee',title:'Fee',width:80}
+		]],
+		fitColumns:true,
+		url:'php/get_events_reg.php',
+		singleSelect:true
+	});
 
 // WEST REGION
 
@@ -19,7 +39,8 @@ $(function(){
 	$('#ctr').panel({
 		region:'center',
 		title:'Student Information',
-		border:false
+		border:false,
+		header:'#rg_tab_nvbtns'
 	});
 		// FORM FIELDS
 		$('#nbrbx_transid').numberbox({
@@ -68,7 +89,6 @@ $(function(){
 			buttonText:'Make Payment',
 			buttonIcon:'icon-ok',
 			onClickButton:function(){
-				// $('#ff_pmt').form('clear');
 				$('#dlg_pmt').dialog('open').dialog('center');
 				$('#fm_pmt').form('clear');
 			}
@@ -78,44 +98,10 @@ $(function(){
 	$('#sth').panel({
 		collapsible:false,
 		region:'south',
-		title:'Events',
 		border:false,
 		fit:true,
 	});
-		// EVENT LIST 
-		$('#dg_reg').datagrid({
-			fit:true,
-			border:false,
-			toolbar:[{
-				iconCls:'icon-ok',
-				text:'Register',
-				id:'btn_register',
-				handler:function(){
-					var dg_reg = $('#dg_reg').datagrid('getSelected');
-					dlg_confirmation("Confirm Registration!<br><br><span style='font-style:italic'>"+dg_reg.event_name+"<br>Start Date: "+dg_reg.start_dt+"</span>","icon-edit");
-					$('#dlg_transaction').dialog('open');
-				}	
-			}
-			// ,"-",{
-			// 	iconCls:'icon-edit',
-			// 	text:'Attendance Sign-in',
-			// 	id:'btn_attendance',
-			// 	handler:function(){
-			// 		alert('Attendance');
-			// 	}
-			// }
-			],
-			columns:[[
-				{field:'event_id',title:'Event ID',width:80,hidden:true},
-				{field:'event_name',title:'Event Name',width:80},
-				{field:'start_dt',title:'Start Date',width:80},
-				{field:'fee',title:'Fee',width:80}
-			]],
-			fitColumns:true,
-			// data:data,
-			url:'php/get_events_reg.php',
-			singleSelect:true
-		});
+		
 
 // CENTER REGION
 	$('#dg_history').datagrid({
