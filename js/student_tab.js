@@ -17,7 +17,7 @@ $(function(){
 		]],
 		fitColumns:true,
 		toolbar:[{
-			iconCls:'icon-add',
+			iconCls:'icon-ok',
 			text:'Create',
 			handler:function(){
 				$('#dlg_students').dialog('open').dialog('center').dialog('setTitle','New Student');

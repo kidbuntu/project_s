@@ -1,4 +1,5 @@
 $(function(){
+var url;
 // DATAGRID	
 	$('#dg_event').datagrid({
 		fit:true,
@@ -22,17 +23,35 @@ $(function(){
 		url:'php/get_events.php'
 	});
 
-	// MENUBUTTON
-		$('#mb_new').menubutton({
-			iconCls:'icon-add',
-			menu:'#mm_new'
-		});
+
+	// tb_event toolbar buttons
+		// 'NEW' MENUBUTTON
+			$('#mb_new').menubutton({
+				iconCls:'icon-add',
+				menu:'#mm_new'
+			});
+		// 'EDIT'
+			$("#btn_edit_event").linkbutton({
+				iconCls:'icon-edit',
+				plain:true,
+				onClick:function(){
+					var row = $('#dg_event').datagrid('getSelected');
+		            if (row){
+		                $('#dlg_new_event').dialog('open').dialog('center').dialog('setTitle','Edit Event Information');
+		                $('#fm_event').form('load',row);
+		                url = 'php/update_event.php?event_id='+row.event_id;
+
+		            }
+				}
+			});
 
 // BUTTONS
 
 	// NEW EVENT
 	$("#btn_event").click(function(){
+		url = 'php/save_event.php';
 		$("#dlg_new_event").dialog('open').dialog('center');
+		$("fm_event").form('clear');
 	});
 
 	// NEW CATEGORY
@@ -47,19 +66,22 @@ $(function(){
 		// TEXTBOX
 			$("#txtbx_eventname").textbox({
 				label:'Event Name',
-				labelWidth:120
+				labelWidth:120,
+				required:true
 			});
 
 			$("#txtbx_eventdesc").textbox({
 				label:'Event Description',
 				labelWidth:120,
-				multiline:true
+				multiline:true,
+				required:true
 			});
 
 		// COMBOBOX
 			$("#cc_category").combobox({
 				label:'Category',
 				labelWidth:120,
+				required:true,
 				valueField:'category_id',
 				textField:'category_name',
 				url:'php/cc_event_category.php',
@@ -70,27 +92,49 @@ $(function(){
 				label:'Start Date',
 				labelWidth:120,
 				showSeconds:false
-			}).datetimebox('setValue',' 00:00');
-
-		// EVENT DLG
-			$("#dlg_new_event").dialog({
-				title:'New Event',
-				closed:true,
-				modal:true,
-				width:500,
-				buttons:[{
-					iconCls:'icon-ok',
-					text:'Ok',
-					plain:true
-				},{
-					iconCls:'icon-cancel',
-					text:'Cancel',
-					plain:true,
-					handler:function(){
-						$("#dlg_new_event").dialog('close');
-					}
-				}]
 			});
+
+			// EVENT DLG
+				$("#dlg_new_event").dialog({
+					title:'New Event',
+					closed:true,
+					modal:true,
+					width:500,
+					buttons:[{
+						iconCls:'icon-ok',
+						text:'Ok',
+						plain:true,
+						handler:function(){
+							$("#fm_event").form('submit',{
+								url:url,
+								onSubmit:function(){
+									return $(this).form('validate');
+								},
+								success:function(result){
+									var result = eval('('+result+')');
+				                    if (result.errorMsg){
+				                        $.messager.show({
+				                            title: 'Error',
+				                            msg: result.errorMsg
+				                        });
+				                    } else {
+				                        $('#dlg_new_event').dialog('close');        // close the dialog
+				                        $('#dg_event').datagrid('reload');    // reload the user data
+				                    }
+									// $("#dlg_new_event").dialog('close');		
+								}
+							});
+							
+						}
+					},{
+						iconCls:'icon-cancel',
+						text:'Cancel',
+						plain:true,
+						handler:function(){
+							$("#dlg_new_event").dialog('close');
+						}
+					}]
+				});
 
 	// NEW CATEGORY DIALOG BOX CONTENTS
 		// TEXTBOX
@@ -108,7 +152,7 @@ $(function(){
 		// NEW CATEGORY DLG
 			$("#dlg_new_category").dialog({
 				title:'New Category',
-				closed:false,
+				closed:true,
 				modal:true,
 				width:500,
 				buttons:[{
