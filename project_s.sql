@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 28, 2018 at 10:45 PM
+-- Generation Time: Jun 29, 2018 at 07:19 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `event_category` (
-  `category_id` int(11) NOT NULL,
+  `sequence_id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
   `category_description` varchar(255) NOT NULL,
   `created_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -42,11 +42,17 @@ CREATE TABLE `event_category` (
 -- Dumping data for table `event_category`
 --
 
-INSERT INTO `event_category` (`category_id`, `category_name`, `category_description`, `created_dt`, `created_by`, `last_updated_dt`, `last_updated_by`) VALUES
-(1, 'SPORTS', 'Physical Activity', '2018-06-28 13:37:23', 'Admin', NULL, NULL),
-(2, 'BUWAN NG WIKA', 'Informatics Yearly Buwan ng Wika Celebration', '2018-06-28 13:37:23', 'Admin', NULL, NULL),
-(3, 'CULTURAL', 'Filipino Traditional Event', '2018-06-28 16:04:53', 'Admin', NULL, NULL),
-(4, 'SAMPLE', 'SAMPLE', '2018-06-28 16:06:39', 'Admin', NULL, NULL);
+INSERT INTO `event_category` (`sequence_id`, `category_name`, `category_description`, `created_dt`, `created_by`, `last_updated_dt`, `last_updated_by`) VALUES
+(1, 'BUWAN NG WIKA', 'TEST ONLY', '2018-06-28 13:37:23', 'Admin', NULL, NULL),
+(2, 'CULTURAL', 'Filipino Traditional Event', '2018-06-28 16:04:53', 'Admin', NULL, NULL),
+(3, 'SAMPLE', 'SAMPLE', '2018-06-28 16:06:39', 'Admin', NULL, NULL),
+(4, 'SPORTS', 'Physical Activity', '2018-06-28 13:37:23', 'Admin', NULL, NULL),
+(5, 'TEST', 'TEST', '2018-06-29 22:34:54', '', NULL, NULL),
+(6, 'OTHER', 'Misc', '2018-06-29 23:57:44', '', NULL, NULL),
+(7, 'EXAMPLE', 'EXAMPLE', '2018-06-30 00:34:25', '', NULL, NULL),
+(8, 'HARRY', 'HARRY', '2018-06-30 00:35:24', '', NULL, NULL),
+(9, 'Training', 'Development Activity', '2018-06-30 00:43:09', '', NULL, NULL),
+(10, 'INDOOR', 'Indoor Activities', '2018-06-30 00:46:55', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -57,8 +63,9 @@ INSERT INTO `event_category` (`category_id`, `category_name`, `category_descript
 CREATE TABLE `event_header` (
   `event_id` int(11) NOT NULL,
   `event_name` varchar(255) NOT NULL,
-  `event_category_id` int(11) NOT NULL,
+  `event_category_id` varchar(255) NOT NULL,
   `event_description` varchar(255) NOT NULL,
+  `fee` int(11) DEFAULT NULL,
   `created_by` varchar(255) NOT NULL,
   `created_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `start_dt` datetime DEFAULT NULL,
@@ -71,10 +78,8 @@ CREATE TABLE `event_header` (
 -- Dumping data for table `event_header`
 --
 
-INSERT INTO `event_header` (`event_id`, `event_name`, `event_category_id`, `event_description`, `created_by`, `created_dt`, `start_dt`, `last_updated_by`, `last_updated_dt`, `status`) VALUES
-(1, 'SPORTSFEST', 1, 'Informatics Sportsfest 2018', 'Admin', '2018-06-28 15:34:58', '2018-07-01 00:00:00', NULL, NULL, 'OPEN'),
-(2, 'BUWAN NG WIKA', 2, 'Informatics 2018 Buwan ng Wika', 'Admin', '2018-06-28 16:01:55', '2018-07-25 00:00:00', NULL, NULL, 'OPEN'),
-(3, 'SAMPLE', 4, 'SAMPLE EVENT', 'Admin', '2018-06-28 16:07:04', NULL, NULL, NULL, 'CANCELLED');
+INSERT INTO `event_header` (`event_id`, `event_name`, `event_category_id`, `event_description`, `fee`, `created_by`, `created_dt`, `start_dt`, `last_updated_by`, `last_updated_dt`, `status`) VALUES
+(7, 'Chess Event', 'INDOOR', 'Sportsfest Chess Event', NULL, 'Admin', '2018-06-30 00:47:34', '2018-06-16 00:47:00', NULL, NULL, 'OPEN');
 
 -- --------------------------------------------------------
 
@@ -216,7 +221,7 @@ INSERT INTO `users` (`userid`, `firstname`, `lastname`, `password`, `type`, `cre
 -- Indexes for table `event_category`
 --
 ALTER TABLE `event_category`
-  ADD PRIMARY KEY (`category_id`),
+  ADD PRIMARY KEY (`sequence_id`),
   ADD UNIQUE KEY `category_name` (`category_name`);
 
 --
@@ -224,8 +229,9 @@ ALTER TABLE `event_category`
 --
 ALTER TABLE `event_header`
   ADD PRIMARY KEY (`event_id`),
+  ADD KEY `last_updated_by` (`last_updated_by`),
   ADD KEY `event_category_id` (`event_category_id`),
-  ADD KEY `last_updated_by` (`last_updated_by`);
+  ADD KEY `event_category_id_2` (`event_category_id`);
 
 --
 -- Indexes for table `students`
@@ -279,13 +285,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `event_category`
 --
 ALTER TABLE `event_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sequence_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `event_header`
 --
 ALTER TABLE `event_header`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -307,7 +313,7 @@ ALTER TABLE `transaction_item_assoc`
 -- Constraints for table `event_header`
 --
 ALTER TABLE `event_header`
-  ADD CONSTRAINT `event_category_id_const` FOREIGN KEY (`event_category_id`) REFERENCES `event_category` (`category_id`);
+  ADD CONSTRAINT `event_hdr_cat_const` FOREIGN KEY (`event_category_id`) REFERENCES `event_category` (`category_name`);
 
 --
 -- Constraints for table `students`
