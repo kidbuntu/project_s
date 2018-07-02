@@ -30,5 +30,8 @@ ADD, UPDATE AND DELETE are now available on the ff:
 - EVENT TABLE LIST
 - CATEGORY TABLE LIST
 
+REGISTRATION TAB
+- transactions automatically starts and creates a transaction id upon entering student id and clicking start button
+
 
 
