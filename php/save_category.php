@@ -1,7 +1,7 @@
 <?php
 
 $category_name = htmlspecialchars($_REQUEST['category_name']);
-$category_desc = htmlspecialchars($_REQUEST['category_desc']);
+$category_desc = htmlspecialchars($_REQUEST['category_description']);
 
 include 'conn.php';
 

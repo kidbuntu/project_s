@@ -210,6 +210,7 @@ var url;
 				                    } else {
 				                        $('#dlg_event').dialog('close');        // close the dialog
 				                        $('#dg_event').datagrid('reload');    // reload the user data
+				                        $('#dg_reg').datagrid('reload'); // reload reg list
 				                    }	
 								}
 							});

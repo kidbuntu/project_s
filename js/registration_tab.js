@@ -50,7 +50,7 @@ $(function(){
 				var stid = $('#txtbx_stid').textbox('getValue');
 				if (stid) {
 					$.post('php/get_student.php', {id:stid}, function(data){
-						// console.log(data);
+						console.log(data);
 						if (data == false) {
 							$.messager.alert('Alert','Record not found!','warning');		
 						}else{
@@ -58,7 +58,7 @@ $(function(){
 							$('#nbrbx_bal').numberbox({disabled:false});
 							$('#txtbx_stid').textbox({disabled:true});
 
-							$('#ff_regtab').form('load',data);	
+							$('#ff_regtab').form('load',data[0]);	
 							$('#dg_history').datagrid({url:'php/get_student_history.php?id='+stid});
 						}	
 					},'json');
