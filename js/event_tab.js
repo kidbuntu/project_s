@@ -30,7 +30,7 @@ var url;
 		fit:true,
 		border:false,
 		columns:[[
-			{field:'sequence_id',title:'Sequence ID',width:100,hidden:false},
+			{field:'sequence_id',title:'Sequence ID',width:100,hidden:true},
 			{field:'category_name',title:'Category',width:80},
 			{field:'category_description',title:'Description',width:80}
 		]],
