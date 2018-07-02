@@ -1,4 +1,4 @@
-w<?php 
+<?php 
 session_start();
 $data = array('has_session'=> isset($_SESSION['user']));
 

@@ -1,7 +1,6 @@
 $(function(){
 var url;
 // DATAGRID
-
 	// EVENTS
 	$('#dg_event').datagrid({
 		fit:true,
@@ -31,6 +30,7 @@ var url;
 		fit:true,
 		border:false,
 		columns:[[
+			{field:'sequence_id',title:'Sequence ID',width:100,hidden:false},
 			{field:'category_name',title:'Category',width:80},
 			{field:'category_description',title:'Description',width:80}
 		]],
@@ -42,15 +42,43 @@ var url;
 			text:"Add",
 			handler:function(){
 				url = 'php/save_category.php';
-				$("#dlg_new_category").dialog("center").dialog("open").dialog('setTitle','New Category');
+				$("#dlg_category").dialog("center").dialog("open").dialog('setTitle','New Category');
 				$("#fm_category").form("clear");
 			}
 		},"-",{
 			iconCls:"icon-edit",
-			text:"Edit"
+			text:"Edit",
+			handler:function(){
+				var row = $('#dg_category').datagrid('getSelected');
+				if (row) {
+					$("#dlg_category").dialog("center").dialog("open").dialog("setTitle","Edit Category");
+					$('#fm_category').form('load',row);
+			        url = 'php/update_category.php?sequence_id='+row.sequence_id;
+				}
+					
+			}
 		},"-",{
 			iconCls:'icon-remove',
-			text:"Remove"
+			text:"Remove",
+			handler:function(){
+				var row = $('#dg_category').datagrid('getSelected');
+	            if (row){
+	                $.messager.confirm('Confirm','Are you sure you want to destroy this category?',function(r){
+	                    if (r){
+	                        $.post('php/destroy_category.php',{sequence_id:row.sequence_id},function(result){
+	                            if (result.success){
+	                                $('#dg_category').datagrid('reload');    // reload the user data
+	                            } else {
+	                                $.messager.show({    // show error message
+	                                    title: 'Error',
+	                                    msg: result.errorMsg
+	                                });
+	                            }
+	                        },'json');
+	                    }
+	                });
+	            }
+			}
 		}]
 	})
 
@@ -79,6 +107,30 @@ var url;
 		            }
 				}
 			});
+
+			$("#btn_remove_event").linkbutton({
+				iconCls:'icon-remove',
+				plain:true,
+				onClick:function(){
+					var row = $('#dg_event').datagrid('getSelected');
+		            if (row){
+		                $.messager.confirm('Confirm','Are you sure you want to destroy this event?',function(r){
+		                    if (r){
+		                        $.post('php/destroy_event.php',{event_id:row.event_id},function(result){
+		                            if (result.success){
+		                                $('#dg_event').datagrid('reload');    // reload the user data
+		                            } else {
+		                                $.messager.show({    // show error message
+		                                    title: 'Error',
+		                                    msg: result.errorMsg
+		                                });
+		                            }
+		                        },'json');
+		                    }
+		                });
+		            }
+				}
+			})
 		// 'OPTIONS'
 			$("#mb_options").menubutton({
 				iconCls:'icon-more',
@@ -112,7 +164,8 @@ var url;
 		// NUMBERBOX
 			$("#nbrbx_fee").numberbox({
 				label:'Fee',
-				labelWidth:120
+				labelWidth:120,
+				precision:2
 			});
 
 		// COMBOBOX
@@ -188,7 +241,7 @@ var url;
 				required:true
 			});
 		// NEW CATEGORY DLG
-			$("#dlg_new_category").dialog({
+			$("#dlg_category").dialog({
 				closed:true,
 				modal:true,
 				width:500,
@@ -197,23 +250,23 @@ var url;
 					text:'Ok',
 					plain:true,
 					handler:function(){
-						$("#fm_category").form('submit',{
-							url:url,
+						$("#fm_category").form("submit",{
+							url: url,
 							onSubmit:function(){
 								return $(this).form('validate');
 							},
 							success:function(result){
 								var result = eval('('+result+')');
-			                    if (result.errorMsg){
-			                        $.messager.show({
-			                            title: 'Error',
-			                            msg: result.errorMsg
-			                        });
-			                    } else {
-			                        $('#dlg_new_category').dialog('close');        // close the dialog
-			                        $('#dg_category').datagrid('reload');
-			                        $("#cc_category").combobox("reload");
-			                    }	
+								if (result.errorMsg){
+									$.messager.show({
+									title: 'Error',
+									msg: result.errorMsg
+									});
+								} else {
+									$('#dlg_category').dialog('close');        // close the dialog
+									$('#dg_category').datagrid('reload');
+									$("#cc_category").combobox("reload");
+								}	
 							}
 						});
 					}
@@ -222,7 +275,7 @@ var url;
 					text:'Cancel',
 					plain:true,
 					handler:function(){
-						$("#dlg_new_category").dialog('close');
+						$("#dlg_category").dialog('close');
 					}
 				}]
 			});

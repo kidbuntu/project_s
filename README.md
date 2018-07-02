@@ -26,5 +26,9 @@ LOGIN PAGE
 SESSION
 - usage of the system requires a session now
 
+ADD, UPDATE AND DELETE are now available on the ff:
+- EVENT TABLE LIST
+- CATEGORY TABLE LIST
+
 
 
