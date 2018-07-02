@@ -58,7 +58,7 @@ $(function(){
 							$('#nbrbx_bal').numberbox({disabled:false});
 							$('#txtbx_stid').textbox({disabled:true});
 
-							$('#ff_regtab').form('load',data[0]);	
+							$('#ff_regtab').form('load',data);	
 							$('#dg_history').datagrid({url:'php/get_student_history.php?id='+stid});
 						}	
 					},'json');
