@@ -4,7 +4,6 @@ $(function(){
 		if (data.has_session == false) {
 			window.location.replace("./login.html");
 		}
-		console.log(data);
 		$("#user").text(data[1]);
 	},"json");
 

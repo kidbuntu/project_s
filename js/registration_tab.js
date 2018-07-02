@@ -9,11 +9,17 @@ $(function(){
 			iconCls:'icon-ok',
 			text:'Register',
 			id:'btn_register',
+			disabled:true,
 			handler:function(){
 				var dg_reg = $('#dg_reg').datagrid('getSelected');
 				dlg_confirmation("Confirm Registration!<br><br><span style='font-style:italic'>"+dg_reg.event_name+"<br>Start Date: "+dg_reg.start_dt+"</span>","icon-edit");
 				$('#dlg_transaction').dialog('open');
 			}	
+		},"-",{
+			iconCls:'icon-man',
+			text:'Attendance',
+			id:'btn_attendance',
+			disabled:true
 		}],
 		columns:[[
 			{field:'event_id',title:'Event ID',width:80,hidden:true},
@@ -54,7 +60,7 @@ $(function(){
 						if (data == false) {
 							$.messager.alert('Alert','Record not found!','warning');		
 						}else{
-							$('#btn_void, #btn_done, #btn_register').linkbutton({disabled:false});
+							$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:false});
 							$('#nbrbx_bal').numberbox({disabled:false});
 							$('#txtbx_stid').textbox({disabled:true});
 
@@ -101,7 +107,7 @@ $(function(){
 		border:false,
 		pagination:true,
 		columns:[[
-			{field:'trans_id',title:'Transaction ID',width:120,fixed:true},
+			{field:'trans_id',title:'ID',width:60,fixed:true},
 			{field:'details',title:'Remarks',width:80,halign:'right'},
 			{field:'userid',title:'User',width:120,fixed:true},
 			{field:'created_dt',title:'Date',width:170,fixed:true},
@@ -142,7 +148,7 @@ $(function(){
 	});
 
 // BUTTONS
-	$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:true});
+	$('#btn_void, #btn_done').linkbutton({disabled:true});
 	$('#btn_done').linkbutton({
 		onClick:function(){
 			var obj = {
@@ -271,7 +277,7 @@ $(function(){
 				$('#ff_regtab').form('clear');				
 				$('#txtbx_stid').textbox({disabled:false});	
 				$('#nbrbx_bal').numberbox({disabled:true});
-				$('#btn_void, #btn_done, #btn_register').linkbutton({disabled:true});
+				$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:true});
 			}
 	
 
