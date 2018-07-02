@@ -1,59 +1,68 @@
 $(function(){
 // DATAGRID
-	// EVENT LIST 
-	$('#dg_reg').datagrid({
-		fit:true,
-		pagination:true,
-		border:false,
-		toolbar:[{
-			iconCls:'icon-ok',
-			text:'Register',
-			id:'btn_register',
-			disabled:true,
-			handler:function(){
-				var dg_reg = $('#dg_reg').datagrid('getSelected');
-				dlg_confirmation("Confirm Registration!<br><br><span style='font-style:italic'>"+dg_reg.event_name+"<br>Start Date: "+dg_reg.start_dt+"</span>","icon-edit");
-				$('#dlg_transaction').dialog('open');
-			}	
-		},"-",{
-			iconCls:'icon-man',
-			text:'Attendance',
-			id:'btn_attendance',
-			disabled:true
-		}],
-		columns:[[
-			{field:'event_id',title:'Event ID',width:80,hidden:true},
-			{field:'event_name',title:'Event Name',width:80},
-			{field:'start_dt',title:'Start Date',width:80},
-			{field:'fee',title:'Fee',width:80}
-		]],
-		fitColumns:true,
-		url:'php/get_events_reg.php',
-		singleSelect:true
-	});
-
 // WEST REGION
-		
-	// STUDENT INFO PANEL
-	// CENTER
+
+	// CENTER PANEL
 	$('#ctr').panel({
 		region:'center',
 		border:false,
 		header:'#rg_tab_nvbtns'
 	});
-		// FORM FIELDS
+		// BUTTONS
+
+			// SEARCH
+				// $("#btn_search").linkbutton({
+				// 	iconCls:'icon-search',
+				// 	plain:true
+				// });
+
+			// VOID
+			$("#btn_void").linkbutton({
+				iconCls:'icon-cancel',
+				plain:true,
+				disabled:true,
+				onClick:function(){
+					var obj = {
+						string:"Voiding Transaction?<br><p>Please Confirm!</p>",
+						icon:"icon-cancel"
+					};
+					dlg_confirmation(obj.string, obj.icon);
+					$('#dlg_transaction').dialog('open');
+				}
+			});
+
+			// DONE
+			$('#btn_done').linkbutton({
+				iconCls:'icon-ok',
+				plain:true,
+				disabled:true,
+				onClick:function(){
+					var obj = {
+						string:"Finalizing Transaction?<br><p>Please Confirm!</p>",
+						icon:"icon-ok"
+					};
+					dlg_confirmation(obj.string, obj.icon);
+					$('#dlg_transaction').dialog('open');
+				}
+			});
+
+		// FORM 
 		$('#nbrbx_transid').numberbox({
 			label:'Trans No.',
 			editable:false
 		});
-		$('#txtbx_stid').textbox({
+		$('#txtbx_stid').combobox({
 			prompt:'Enter Student ID',
 			required:true,
 			buttonText:'Start',
+			buttonAlign:'left',
 			buttonIcon:'icon-ok',
 			label:'Student ID',
+			url:'php/cc_get_students.php',
+			valueField:'student_id',
+			textField:'info',
 			onClickButton:function(){
-				var stid = $('#txtbx_stid').textbox('getValue');
+				var stid = $('#txtbx_stid').combobox('getValue');
 				if (stid) {
 					$.post('php/get_student.php', {id:stid}, function(data){
 						console.log(data);
@@ -62,7 +71,7 @@ $(function(){
 						}else{
 							$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:false});
 							$('#nbrbx_bal').numberbox({disabled:false});
-							$('#txtbx_stid').textbox({disabled:true});
+							$('#txtbx_stid').combobox({disabled:true});
 
 							$('#ff_regtab').form('load',data);	
 							$('#dg_history').datagrid({url:'php/get_student_history.php?id='+stid});
@@ -92,13 +101,46 @@ $(function(){
 				$('#fm_pmt').form('clear');
 			}
 		});
-	// EVENT PANEL
+
+	// SOUTH PANEL
 	$('#sth').panel({
 		collapsible:false,
 		region:'south',
 		border:false,
 		fit:true,
 	});
+
+		// EVENT DATAGRID 
+		$('#dg_reg').datagrid({
+			columns:[[
+				{field:'event_id',title:'Event ID',width:80,hidden:true},
+				{field:'event_name',title:'Event Name',width:80},
+				{field:'start_dt',title:'Start Date',width:80},
+				{field:'fee',title:'Fee',width:80}
+			]],
+			fitColumns:true,
+			fit:true,
+			url:'php/get_events_reg.php',
+			singleSelect:true,
+			pagination:true,
+			border:false,
+			toolbar:[{
+				iconCls:'icon-ok',
+				text:'Register',
+				id:'btn_register',
+				disabled:true,
+				handler:function(){
+					var dg_reg = $('#dg_reg').datagrid('getSelected');
+					dlg_confirmation("Confirm Registration!<br><br><span style='font-style:italic'>"+dg_reg.event_name+"<br>Start Date: "+dg_reg.start_dt+"</span>","icon-edit");
+					$('#dlg_transaction').dialog('open');
+				}	
+			},"-",{
+				iconCls:'icon-man',
+				text:'Attendance',
+				id:'btn_attendance',
+				disabled:true
+			}]
+		});
 
 // CENTER REGION
 	$('#dg_history').datagrid({
@@ -147,31 +189,7 @@ $(function(){
 		}
 	});
 
-// BUTTONS
-	$('#btn_void, #btn_done').linkbutton({disabled:true});
-	$('#btn_done').linkbutton({
-		onClick:function(){
-			var obj = {
-				string:"Finalizing Transaction?<br><p>Please Confirm!</p>",
-				icon:"icon-ok"
-			};
-			dlg_confirmation(obj.string, obj.icon);
-			$('#dlg_transaction').dialog('open');
-		}
-	});
-	$('#btn_void').linkbutton({
-		onClick:function(){
-			var obj = {
-				string:"Voiding Transaction?<br><p>Please Confirm!</p>",
-				icon:"icon-cancel"
-			};
-			dlg_confirmation(obj.string, obj.icon);
-			$('#dlg_transaction').dialog('open');	
-		}
-	});
-
 // DIALOG
-
 	// DLG CONFIRMATION
 	function dlg_confirmation(string, icon){
 		$('#dlg_transaction').dialog({
@@ -275,7 +293,7 @@ $(function(){
 				$('#dg_history').datagrid('loadData',data);
 				$('#dlg_transaction').dialog('close');
 				$('#ff_regtab').form('clear');				
-				$('#txtbx_stid').textbox({disabled:false});	
+				$('#txtbx_stid').combobox({disabled:false});	
 				$('#nbrbx_bal').numberbox({disabled:true});
 				$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:true});
 			}
