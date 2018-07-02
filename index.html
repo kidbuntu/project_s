@@ -61,8 +61,11 @@ border:0;
 	<!-- HEADER -->
 	<div data-options="region:'north'" style="height:50px;background-color: #3d3d3d">
 		<img src="images/new_logo.png" style="width: auto ; height: 90%; padding-left: 10px; margin-right: 10px; float: left;">
-		<div style="color: white; padding-top: 10px; font-size: 22px;">
-			<label>STUDENT-COUNCIL MANAGEMENT SYSTEM</label>
+		<div style="color: white; padding-top: 10px; font-size: 22px; float: left;">
+			<label>STUDENT-COUNCIL MANAGEMENT SYSTEM - <span id="user"></span></label>
+		</div>
+		<div style="float: right; margin: 10px 10px">
+			<a href="#" id="btn_logout">Logout</a>
 		</div>
 	</div>
 
@@ -152,7 +155,7 @@ border:0;
 						</div>
 				</div>
 				<!-- DIALOG BOX NEW EVENT -->
-				<div id="dlg_new_event">
+				<div id="dlg_event">
 					<form id="fm_event" method="post" novalidate style="margin:0;padding:20px 20px">
 						<h3>Event Information</h3>
 						<div style="padding-bottom: 10px;">

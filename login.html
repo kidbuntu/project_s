@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Project S Login</title>
+	<link rel="icon" type="text/css" href="images/new_logo.png" sizes="">    
+	<!-- <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"> -->
+	<link rel="stylesheet" type="text/css" href="easyui/themes/bootstrap/easyui.css">
+	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="easyui/themes/color.css">
+	<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+
+	<script type="text/javascript" src="js/login.js"></script>
+<style>
+	.center {
+    margin: auto;
+    width: 400px;
+    padding-top: 100px;
+}
+</style>
+</head>
+<body>
+
+<div id="container">
+	<!-- NORTH -->
+	<div data-options="region:'north'" style="height:50px;background-color: #3d3d3d">
+		<img src="images/new_logo.png" style="width: auto ; height: 90%; padding-left: 10px; margin-right: 10px; float: left;">
+		<div style="color: white; padding-top: 10px; font-size: 22px;">
+			<label>STUDENT-COUNCIL MANAGEMENT SYSTEM</label>
+		</div>
+	</div>
+	<!-- CENTER -->
+	<div data-options="region:'center'">
+		<div class="center">
+			<div id="panel" style="width: 100%;padding:20px 20px;">
+				<form id="ff_login" method="post">
+			        <div style="margin-bottom:20px">
+			            <input type="text" id="txtbx_usr" name="username" style="width: 100%;">
+			        </div>
+			        <div style="margin-bottom:20px">
+			            <input type="password" id="txtbx_pwd" name="password" style="width: 100%;">
+			        </div>
+
+			        <div style="float: right;">
+			        	<a href="#" id="btn_login" class="c1"><span style="font-weight: bold;">LOGIN</span></a>
+			        </div>
+			    </form>    		        
+			</div>	
+		</div>
+	</div>
+</div>	
+</body>
+</html>
+

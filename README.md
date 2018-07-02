@@ -20,5 +20,11 @@ DATABASE
 event_header
 - fee column has now been added.
 
+LOGIN PAGE
+- login is now required to have a least form of security
+
+SESSION
+- usage of the system requires a session now
+
 
 

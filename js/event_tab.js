@@ -42,7 +42,7 @@ var url;
 			text:"Add",
 			handler:function(){
 				url = 'php/save_category.php';
-				$("#dlg_new_category").dialog("center").dialog("open");
+				$("#dlg_new_category").dialog("center").dialog("open").dialog('setTitle','New Category');
 				$("#fm_category").form("clear");
 			}
 		},"-",{
@@ -61,7 +61,7 @@ var url;
 				plain:true,
 				onClick:function(){
 					url = 'php/save_event.php';
-						$("#dlg_new_event").dialog('open').dialog('center');
+						$("#dlg_event").dialog('open').dialog('center').dialog('setTitle','New Event');
 						$("#fm_event").form('clear');
 				}
 			});
@@ -72,7 +72,7 @@ var url;
 				onClick:function(){
 					var row = $('#dg_event').datagrid('getSelected');
 		            if (row){
-		                $('#dlg_new_event').dialog('open').dialog('center').dialog('setTitle','Edit Event Information');
+		                $('#dlg_event').dialog('open').dialog('center').dialog('setTitle','Edit Event');
 		                $('#fm_event').form('load',row);
 		                url = 'php/update_event.php?event_id='+row.event_id;
 
@@ -133,8 +133,7 @@ var url;
 			});
 
 			// EVENT DLG
-				$("#dlg_new_event").dialog({
-					title:'New Event',
+				$("#dlg_event").dialog({
 					closed:true,
 					modal:true,
 					width:500,
@@ -156,7 +155,7 @@ var url;
 				                            msg: result.errorMsg
 				                        });
 				                    } else {
-				                        $('#dlg_new_event').dialog('close');        // close the dialog
+				                        $('#dlg_event').dialog('close');        // close the dialog
 				                        $('#dg_event').datagrid('reload');    // reload the user data
 				                    }	
 								}
@@ -168,7 +167,7 @@ var url;
 						text:'Cancel',
 						plain:true,
 						handler:function(){
-							$("#dlg_new_event").dialog('close');
+							$("#dlg_event").dialog('close');
 						}
 					}]
 				});
@@ -190,7 +189,6 @@ var url;
 			});
 		// NEW CATEGORY DLG
 			$("#dlg_new_category").dialog({
-				title:'New Category',
 				closed:true,
 				modal:true,
 				width:500,

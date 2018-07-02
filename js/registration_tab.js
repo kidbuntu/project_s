@@ -3,6 +3,7 @@ $(function(){
 	// EVENT LIST 
 	$('#dg_reg').datagrid({
 		fit:true,
+		pagination:true,
 		border:false,
 		toolbar:[{
 			iconCls:'icon-ok',
