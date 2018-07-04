@@ -16,7 +16,7 @@ var url;
 			{field:'created_by',title:'Created By',width:40},
 			{field:'created_dt',title:'Created Date',width:80},
 			{field:'start_dt',title:'Start Date',width:80},
-			{field:'last_updated_by',title:'Modified By',width:80},
+			{field:'last_updated_by',title:'Modified By',width:80},	
 			{field:'last_updated_dt',title:'Updated Date',width:80},
 			{field:'status',title:'Status',width:100,fixed:true}
 		]],

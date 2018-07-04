@@ -31,7 +31,7 @@
 				tabHeight:80,
 				tabWidth:120,
 				selected:0
-			});	
+			});
 		});
 	</script>
 
@@ -100,20 +100,26 @@ border:0;
 								</form>	
 
 								<!-- CONFIRMATION DLG -->
-								<div id="dlg_transaction" style="font-size: 28px;"></div>
-
-								<!-- PAYMENT DLG -->
-								<div id="dlg_pmt" class="easyui-dialog" style="font-size: 28px; padding: 15px;">
-									<div class="gen-padding">
-										<form id="fm_pmt" method="post" novalidate>
-											<input id="fld_pmt_amt" class="easyui-numberbox" data-options="prompt:'Enter Payment Amount Here',fit:true,required:true">	
-										</form>
-										
-									</div>
+								<div id="dlg_confirmation" style="padding: 15px;">
+									<form id="fm_cmf" method="post">
+										<div style="margin-bottom: 10px;">
+											<input type="text" id="cc_ttype" style="width: 100%;">
+										</div>
+										<div style="margin-bottom: 10px;">
+											<input type="text" id="tb_remarks" style="width: 100%;">
+										</div>
+									</form>
 								</div>
 
-								<!-- PAYMENT CONFIRMATION DLG -->
-								<div id="dlg_pmt_cnf" style="font-size: 28px;"></div>
+								<!-- PAYMENT DLG -->
+								<div id="dlg_pmt" style="font-size: 28px; padding: 15px;">
+									<div class="gen-padding">
+										<form id="fm_pmt" method="post" novalidate>
+											<input id="tb_pmt" style="width: 100%;">	
+										</form>
+									</div>
+								</div>
+								<div id="dlg_pmt_cmf" style="font-size: 28px; padding: 15px;"></div>
 
 							</div>
 							<div id="sth">

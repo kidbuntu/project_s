@@ -1,7 +1,6 @@
 $(function(){
-// DATAGRID
 // WEST REGION
-
+var url, amt, btn;
 	// CENTER PANEL
 	$('#ctr').panel({
 		region:'center',
@@ -9,13 +8,6 @@ $(function(){
 		header:'#rg_tab_nvbtns'
 	});
 		// BUTTONS
-
-			// SEARCH
-				// $("#btn_search").linkbutton({
-				// 	iconCls:'icon-search',
-				// 	plain:true
-				// });
-
 			// VOID
 			$("#btn_void").linkbutton({
 				iconCls:'icon-cancel',
@@ -30,7 +22,6 @@ $(function(){
 					$('#dlg_transaction').dialog('open');
 				}
 			});
-
 			// DONE
 			$('#btn_done').linkbutton({
 				iconCls:'icon-ok',
@@ -45,63 +36,69 @@ $(function(){
 					$('#dlg_transaction').dialog('open');
 				}
 			});
+		// FORM
+			// FIELDS
+				// STUDENT ID SEARCH
+			$('#txtbx_stid').combobox({
+				prompt:'Enter Student ID',
+				required:true,
+				buttonText:'Start',
+				buttonAlign:'left',
+				buttonIcon:'icon-ok',
+				label:'Student ID',
+				url:'php/cc_get_students.php',
+				valueField:'student_id',
+				textField:'info',
+				onClickButton:function(){
+					var stid = $('#txtbx_stid').combobox('getValue');
+					if (stid) {
+						$.post('php/get_student.php', {id:stid}, function(data){
+							if (data == false) {
+								$.messager.alert('Alert','Record not found!','warning');		
+							}else{
+								$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:false});
+								$('#nbrbx_bal').numberbox({disabled:false});
+								$('#txtbx_stid').combobox({disabled:true});
 
-		// FORM 
-		$('#nbrbx_transid').numberbox({
-			label:'Trans No.',
-			editable:false
-		});
-		$('#txtbx_stid').combobox({
-			prompt:'Enter Student ID',
-			required:true,
-			buttonText:'Start',
-			buttonAlign:'left',
-			buttonIcon:'icon-ok',
-			label:'Student ID',
-			url:'php/cc_get_students.php',
-			valueField:'student_id',
-			textField:'info',
-			onClickButton:function(){
-				var stid = $('#txtbx_stid').combobox('getValue');
-				if (stid) {
-					$.post('php/get_student.php', {id:stid}, function(data){
-						console.log(data);
-						if (data == false) {
-							$.messager.alert('Alert','Record not found!','warning');		
-						}else{
-							$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:false});
-							$('#nbrbx_bal').numberbox({disabled:false});
-							$('#txtbx_stid').combobox({disabled:true});
-
-							$('#ff_regtab').form('load',data);	
-							$('#dg_history').datagrid({url:'php/get_student_history.php?id='+stid});
-						}	
-					},'json');
-				}else{
-					$.messager.alert('Error','Please Enter Student ID to begin transaction!','error');
+								$('#ff_regtab').form('load',data);	
+								$('#dg_history').datagrid({url:'php/get_student_history.php?id='+stid});
+							}	
+						},'json');
+					}else{
+						$.messager.alert('Error','Please Enter Student ID to begin transaction!','error');
+					}
 				}
-			}
-		});
-		$('#txtbx_ln').textbox({
-			label:'Last Name',
-			editable:false
-		});
-		$('#txtbx_fn').textbox({
-			label:'First Name',
-			editable:false
-		});
-		$('#nbrbx_bal').numberbox({
-			label:'Balance',
-			editable:false,
-			disabled:true,
-			buttonText:'Make Payment',
-			buttonIcon:'icon-ok',
-			onClickButton:function(){
-				$('#dlg_pmt').dialog('open').dialog('center');
-				$('#fm_pmt').form('clear');
-			}
-		});
+			});
 
+				// TRANSACTION ID	
+			$('#nbrbx_transid').numberbox({
+				label:'Trans No.',
+				editable:false
+			});
+				// LASTNAME
+			$('#txtbx_ln').textbox({
+				label:'Last Name',
+				editable:false
+			});
+				// FIRSTNAME
+			$('#txtbx_fn').textbox({
+				label:'First Name',
+				editable:false
+			});
+
+				// BALANCE FIELD
+			$('#nbrbx_bal').numberbox({
+				label:'Balance',
+				editable:false,
+				disabled:true,
+				buttonText:'Make Payment',
+				buttonIcon:'icon-ok',
+				onClickButton:function(){
+					$('#dlg_pmt').dialog('open').dialog('center');
+					$('#fm_pmt').form('clear');
+				}
+			});
+		// END OF FORM	
 	// SOUTH PANEL
 	$('#sth').panel({
 		collapsible:false,
@@ -110,7 +107,7 @@ $(function(){
 		fit:true,
 	});
 
-		// EVENT DATAGRID 
+		// DATAGRID STUDENT 
 		$('#dg_reg').datagrid({
 			columns:[[
 				{field:'event_id',title:'Event ID',width:80,hidden:true},
@@ -143,6 +140,7 @@ $(function(){
 		});
 
 // CENTER REGION
+	// DATAGRID HISTORY
 	$('#dg_history').datagrid({
 		title:'History',
 		fit:true,
@@ -189,12 +187,92 @@ $(function(){
 		}
 	});
 
-// DIALOG
-	// DLG CONFIRMATION
-	function dlg_confirmation(string, icon){
-		$('#dlg_transaction').dialog({
-			title:"Confirmation",
-			content:"<div class='gen-padding'><p>"+string+"</p></div>",
+// DIALOG BOX
+	// CONFIRMATION DIALOG BOX	
+	$("#dlg_confirmation").dialog({
+		closed:true,
+		width:600,
+		modal:true,
+		border:'thin',
+		closable:false,
+		buttons:[{
+			iconCls:'icon-ok',
+			text:'Ok',
+			plain:true,
+			handler:function(){
+				$("#fm_cmf").form('submit',{
+					url:'php/save_transaction.php',
+					onSubmit:function(param){
+						param.ttype = "type";
+						param.remarks = "remarks";
+					}
+				});
+			}
+		},{
+			iconCls:'icon-cancel',
+			text:'Cancel',
+			plain:true,
+			handler:function(){
+				$("#dlg_confirmation").dialog("close");
+			}
+		}]
+	});
+		// COMBOBOX TRANSACTION TYPE
+		$("#cc_ttype").combobox({
+			label:'Transaction Type',
+			labelWidth:120
+			// required:true
+		});
+
+		// TEXTBOX REMARKS
+		$("#tb_remarks").textbox({
+			label:'Remarks',
+			labelWidth:120,
+			multiline:true,
+			height:80
+		});
+	// PAYMENT DIALOG BOX
+	$("#dlg_pmt").dialog({
+		title:'Payment',
+		width:400,
+		modal:true,
+		closable:false,
+		border:'thin',
+		closed:true,
+		buttons:[{
+			iconCls:'icon-ok',
+			text:'Ok',
+			plain:true,
+			handler:function(){
+				amt = $("#tb_pmt").numberbox("getValue");
+				if (amt == "") {
+					$.messager.alert('','Please Enter Payment Amount!','info');
+				}else{
+					$("#dlg_pmt_cmf").dialog({
+						content:"Please Confirm Payment Amount: <span>&#8369</span>"+amt
+					}).dialog("center").dialog("open");
+					console.log(amt);
+
+				}
+			}
+		},{
+			iconCls:'icon-cancel',
+			text:'Cancel',
+			plain:true,
+			handler:function(){
+				$("#dlg_pmt").dialog('close');
+			}
+		}]
+	});
+		// TEXTBOX
+		$("#tb_pmt").textbox({
+			prompt:'Enter Payment Amount Here',
+			required:true,
+		});
+
+		// PAYMENT CONFIRMATION DLG
+		$("#dlg_pmt_cmf").dialog({
+			title:'Payment Confirmation',
 			width:400,
 			modal:true,
 			border:'thin',
@@ -202,102 +280,41 @@ $(function(){
 			buttons:[{
 				iconCls:'icon-ok',
 				text:'Ok',
-				size:'large',
-				plain:true,
 				handler:function(){
-					reset();
+					$.post("php/save_payment.php",{amt:amt});
 				}
 			},{
 				iconCls:'icon-cancel',
 				text:'Cancel',
-				size:'large',
-				plain:true,
 				handler:function(){
-					$('#dlg_transaction').dialog('close');
+					$("#dlg_pmt_cmf").dialog("close");
 				}
 			}]
-		}).panel({
-			iconCls:icon
-		});	
-	}
+		});
 
-	// DLG PAYMENT
-	$('#dlg_pmt').dialog({
-		width:400,
-		border:'thin',
-		title:'Payment',
-		shadow:true,
-		modal:true,
-		closed:true,
-		buttons:[{
-			iconCls:'icon-ok',
-			text:'Ok',
-			plain:true,
-			handler:function(){
-				$('#fm_pmt').form('submit',{
-					onSubmit:function(){
-						return $(this).form('validate');
-					},
-					success:function(){
-						$('#dlg_pmt').dialog('close');
-						pmt_cnf($('#fld_pmt_amt').numberbox('getValue'));
-						$('#dlg_pmt_cnf').dialog('open');		
-					}
-				});
-				// $('#dlg_pmt').dialog('close');
-				// pmt_cnf($('#fld_pmt_amt').numberbox('getValue'));
-				// $('#dlg_pmt_cnf').dialog('open');
-
-
+	$("a").linkbutton({
+		disabled:false,
+		onClick:function(){
+			btn = $(this).text().trim();
+			switch(btn){
+				case "Done":
+					$("#dlg_confirmation").dialog({
+						title:"Finalize"
+					}).dialog("center").dialog("open").panel({
+						iconCls:'icon-ok'
+					});
+					break;
+				case "Void":
+					$("#dlg_confirmation").dialog({
+						title:"Void"
+					}).dialog("center").dialog("open").panel({
+						iconCls:'icon-cancel'
+					});
+					break;
+				case "Make Payment":
+					$("#dlg_pmt").dialog("center").dialog("open");
+					$("#tb_pmt").textbox('clear');
 			}
-		},{
-			iconCls:'icon-cancel',
-			text:'Cancel',
-			plain:true,
-			handler:function(){
-				$('#dlg_pmt').dialog('close');
-			}
-		}]
-	});
-
-	// DLG PAYMENT CONFIRMATION
-		function pmt_cnf(amount){
-			$('#dlg_pmt_cnf').dialog({
-				title:'Payment Confirmation',
-				content:"<div class='gen-padding'><p>Please Confirm Payment Amount!<br><span>&#8369</span>"+amount+"</p></div>",
-				closed:true,
-				width:500,
-				modal:true,
-				border:'thin',
-				buttons:[{
-					iconCls:'icon-ok',
-					text:'Ok',
-					plain:true,
-					handler:function(){
-						$('#dlg_pmt_cnf').dialog('close');
-					}
-				},{
-					iconCls:'icon-cancel',
-					text:'Cancel',
-					plain:true,
-					handler:function(){
-						$('#dlg_pmt_cnf').dialog('close');
-					}
-				}]
-			});
 		}
-	
-
-	function reset(){
-				var data = [];
-				$('#dg_history').datagrid('loadData',data);
-				$('#dlg_transaction').dialog('close');
-				$('#ff_regtab').form('clear');				
-				$('#txtbx_stid').combobox({disabled:false});	
-				$('#nbrbx_bal').numberbox({disabled:true});
-				$('#btn_void, #btn_done, #btn_register, #btn_attendance').linkbutton({disabled:true});
-			}
-	
-
-
+	});
 });
