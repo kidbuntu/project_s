@@ -3,22 +3,21 @@ session_start();
 include 'conn.php';
 
 $userid = htmlspecialchars($_REQUEST['username']);
-$pwd = htmlspecialchars($_REQUEST['password']);
+$pwd = htmlspecialchars(md5($_REQUEST['password']));
 
-$sql = "SELECT * FROM users WHERE userid='$userid' AND password='$pwd'";
+$sql = "SELECT userid,password FROM users WHERE userid='$userid'";
 $result = $conn->query($sql);
-$data = array();
-
+// $data = array();
 	if ($result->num_rows > 0) {
-		// while($row = mysqli_fetch_assoc($result)){
-		// 	$data[] = $row;
-		// }
+		while($row = mysqli_fetch_assoc($result)){
+			$data = $row;
+		}
 		$_SESSION['user'] = $userid;
-		echo json_encode(true);
-	}else{
-		echo json_encode(false);
+		if ($pwd == $data["password"]) {
+			echo json_encode(true);
+		}else{
+			echo json_encode(false);	
+		}
 	}
-
-// echo json_encode($data);
 $conn->close();
 ?>

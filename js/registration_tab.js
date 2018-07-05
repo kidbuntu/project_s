@@ -146,6 +146,7 @@ var url, amt, btn;
 		fit:true,
 		border:false,
 		pagination:true,
+		singleSelect:true,
 		columns:[[
 			{field:'trans_id',title:'ID',width:60,fixed:true},
 			{field:'details',title:'Remarks',width:80,halign:'right'},
@@ -292,29 +293,29 @@ var url, amt, btn;
 			}]
 		});
 
-	$("a").linkbutton({
-		disabled:false,
-		onClick:function(){
-			btn = $(this).text().trim();
-			switch(btn){
-				case "Done":
-					$("#dlg_confirmation").dialog({
-						title:"Finalize"
-					}).dialog("center").dialog("open").panel({
-						iconCls:'icon-ok'
-					});
-					break;
-				case "Void":
-					$("#dlg_confirmation").dialog({
-						title:"Void"
-					}).dialog("center").dialog("open").panel({
-						iconCls:'icon-cancel'
-					});
-					break;
-				case "Make Payment":
-					$("#dlg_pmt").dialog("center").dialog("open");
-					$("#tb_pmt").textbox('clear');
-			}
-		}
-	});
+	// $("a").linkbutton({
+	// 	disabled:false,
+	// 	onClick:function(){
+	// 		btn = $(this).text().trim();
+	// 		switch(btn){
+	// 			case "Done":
+	// 				$("#dlg_confirmation").dialog({
+	// 					title:"Finalize"
+	// 				}).dialog("center").dialog("open").panel({
+	// 					iconCls:'icon-ok'
+	// 				});
+	// 				break;
+	// 			case "Void":
+	// 				$("#dlg_confirmation").dialog({
+	// 					title:"Void"
+	// 				}).dialog("center").dialog("open").panel({
+	// 					iconCls:'icon-cancel'
+	// 				});
+	// 				break;
+	// 			case "Make Payment":
+	// 				$("#dlg_pmt").dialog("center").dialog("open");
+	// 				$("#tb_pmt").textbox('clear');
+	// 		}
+	// 	}
+	// });
 });

@@ -30,7 +30,7 @@
 				fit:true,
 				tabHeight:80,
 				tabWidth:120,
-				selected:0
+				selected:4
 			});
 		});
 	</script>
@@ -223,15 +223,36 @@ border:0;
 
 			<!-- USERS TAB -->
 			<div class="gen-padding" title="<span class='tt-inner'><img src='images/icon.png'/><br>Users</span>">
+				<!-- DATAGRID -->
 				<table id="dg_users"></table>
+
+				<!-- DIALOG BOX -->
+				<div id="dlg_users" style="padding: 15px;">
+					<h3>User Information</h3>
+					<form id="fm_user" method="post">
+						<div style="margin-bottom: 10px;">
+							<input type="text" id="tb_user" name="userid" style="width: 100%;">
+						</div>
+						<div style="margin-bottom: 10px;">
+							<input type="text" id="tb_firstname" name="firstname" style="width: 100%;">
+						</div>
+						<div style="margin-bottom: 10px;">
+							<input type="text" id="tb_lastname" name="lastname" style="width: 100%;">
+						</div>
+						<div style="margin-bottom: 10px;">
+							<input type="text" id="cc_utype" name="type" style="width: 100%;">
+						</div>
+						<div style="margin-bottom: 10px;">
+							<input type="password" id="tb_pwd" name="password" style="width: 100%;">
+						</div>
+					</form>
+				</div>
 			</div>
 			<!-- END OF USERS TAB -->
 
 			<!-- STUDENT TAB -->
 			<div class="gen-padding" title="<span class='tt-inner'><img src='images/user.png'/><br>Student List</span>">
-				<table id="dg_students">
-				</table>
-
+				<table id="dg_students"></table>
 				<!-- DLG STUDENTS -->
 				<div id="dlg_students" data-options="">
 			        <form id="fm_std" method="post" novalidate style="margin:0;padding:20px 50px">

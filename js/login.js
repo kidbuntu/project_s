@@ -29,6 +29,7 @@ $(function(){
 						$("#ff_login").form('submit',{
 							url:'php/get_login.php',
 							success:function(data){
+								console.log(data);
 								if (JSON.parse(data) == true) {
 									window.location.replace("./index.html");
 								}
