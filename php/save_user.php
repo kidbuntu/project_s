@@ -1,6 +1,6 @@
 <?php
 session_start();
-$userid = htmlspecialchars($_REQUEST['userid']);
+$stdid = htmlspecialchars($_REQUEST['stdid']);
 $firstname = htmlspecialchars($_REQUEST['firstname']);
 $lastname = htmlspecialchars($_REQUEST['lastname']);
 $type = htmlspecialchars($_REQUEST['type']);

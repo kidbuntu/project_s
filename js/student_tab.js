@@ -1,5 +1,5 @@
 $(function(){
-
+var url;
 	// DATAGRID
 	$('#dg_students').datagrid({
 		title:'Student List',
@@ -22,7 +22,9 @@ $(function(){
 			text:'Create',
 			handler:function(){
 				$('#dlg_students').dialog('open').dialog('center').dialog('setTitle','New Student');
+				$("#stdid").textbox("enable");
 				$('#fm_std').form('clear');
+				url = "php/save_student.php"
 			}
 		},"-",{
 			iconCls:'icon-edit',
@@ -32,7 +34,8 @@ $(function(){
 	            if (row){
 	                $('#dlg_students').dialog('open').dialog('center').dialog('setTitle','Edit Student');
 	                $('#fm_std').form('load',row);
-	                // url = 'update_user.php?id='+row.id;
+	                $("#stdid").textbox("disable");
+	                url = "php/update_student.php?student_id="+row.student_id;
 	            }
 			}
 		},"-",{
@@ -61,28 +64,54 @@ $(function(){
 		url:'php/get_studentlist.php'
 	});
 
-	$('#fn_std, #ln_std, #contact_no_std, #email_std').textbox({
-		required:true
-	});
-
-	// DLG
+	// DIALOG BOX
 	$('#dlg_students').dialog({
-		width:600,
+		width:400,
 		closed:true,
 		modal:true,
 		border:'thin',
 		buttons:[{
 			iconCls:'icon-ok',
 			text:'Ok',
+			plain:true,
 			handler:function(){
-				$('#dlg_students').dialog('close');
+				$("#fm_std").form("submit",{
+					url:url,
+					onSubmit:function(){
+						return $(this).form('validate');
+					},
+					success:function(result){
+						var result = eval('('+result+')');
+						if (result.errorMsg) {
+							$.messager.show({
+								title:'Error',
+								msg:result.errorMsg
+							});
+						}else{
+							$("#dlg_students").dialog("close");
+							$("#dg_students").datagrid("reload");
+						}
+					}
+				});
 			}
 		},{
 			iconCls:'icon-cancel',
 			text:'Cancel',
+			plain:true,
 			handler:function(){
 				$('#dlg_students').dialog('close');
 			}	
 		}]
 	});
+
+		// FORM
+			// TEXTBOX
+			$('#fn_std, #ln_std, #phone, #email, #stdid').textbox({
+				required:true
+			});
+
+			// DATEBOX
+			$("#dob").datebox({
+				required:true
+			});
 });

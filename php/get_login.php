@@ -12,8 +12,8 @@ $result = $conn->query($sql);
 		while($row = mysqli_fetch_assoc($result)){
 			$data = $row;
 		}
-		$_SESSION['user'] = $userid;
 		if ($pwd == $data["password"]) {
+			$_SESSION['user'] = $userid;
 			echo json_encode(true);
 		}else{
 			echo json_encode(false);	

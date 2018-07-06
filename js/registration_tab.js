@@ -26,14 +26,13 @@ var url, amt, btn;
 			$('#btn_done').linkbutton({
 				iconCls:'icon-ok',
 				plain:true,
-				disabled:true,
+				disabled:false,
 				onClick:function(){
-					var obj = {
-						string:"Finalizing Transaction?<br><p>Please Confirm!</p>",
-						icon:"icon-ok"
-					};
-					dlg_confirmation(obj.string, obj.icon);
-					$('#dlg_transaction').dialog('open');
+					$("#dlg_confirmation").dialog({
+						title:"Finalize"
+					}).dialog("center").dialog("open").panel({
+						iconCls:'icon-ok'
+					});
 				}
 			});
 		// FORM
@@ -128,8 +127,6 @@ var url, amt, btn;
 				disabled:true,
 				handler:function(){
 					var dg_reg = $('#dg_reg').datagrid('getSelected');
-					dlg_confirmation("Confirm Registration!<br><br><span style='font-style:italic'>"+dg_reg.event_name+"<br>Start Date: "+dg_reg.start_dt+"</span>","icon-edit");
-					$('#dlg_transaction').dialog('open');
 				}	
 			},"-",{
 				iconCls:'icon-man',
@@ -299,11 +296,11 @@ var url, amt, btn;
 	// 		btn = $(this).text().trim();
 	// 		switch(btn){
 	// 			case "Done":
-	// 				$("#dlg_confirmation").dialog({
-	// 					title:"Finalize"
-	// 				}).dialog("center").dialog("open").panel({
-	// 					iconCls:'icon-ok'
-	// 				});
+					// $("#dlg_confirmation").dialog({
+					// 	title:"Finalize"
+					// }).dialog("center").dialog("open").panel({
+					// 	iconCls:'icon-ok'
+					// });
 	// 				break;
 	// 			case "Void":
 	// 				$("#dlg_confirmation").dialog({
