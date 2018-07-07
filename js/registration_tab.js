@@ -120,9 +120,14 @@ var url, amt, btn;
 				iconCls:'icon-ok',
 				text:'Register',
 				id:'btn_register',
-				disabled:true,
+				disabled:false,
 				handler:function(){
-					var dg_reg = $('#dg_reg').datagrid('getSelected');
+					var row = $('#dg_reg').datagrid('getSelected');
+					if (row) {
+						$("#dlg_confirmation").dialog({
+							// content:"<p style='font-size:18px;'><span style='color:red;'>Please Confirm Registration!</span><br><br>Event:"+row.event_name+"<br>Start Date:"+row.start_dt+"<br>Fee:"+row.fee+"</p>"
+						}).dialog("open").dialog("center").dialog("setTitle","Registration");
+					}
 				}	
 			},"-",{
 				iconCls:'icon-man',
@@ -187,7 +192,7 @@ var url, amt, btn;
 	// CONFIRMATION DIALOG BOX	
 	$("#dlg_confirmation").dialog({
 		closed:true,
-		width:600,
+		width:400,
 		modal:true,
 		border:'thin',
 		closable:false,
