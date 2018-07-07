@@ -12,6 +12,8 @@ include 'conn.php';
 
 $sql = "INSERT INTO students (student_id,firstname,lastname,dob,phone,email,created_by,status) VALUES ('$stdid','$fname','$lname','$dob','$phone','$email','$usr','Active')";
 
+// echo $sql;
+
 $result = mysqli_query($conn,$sql);
 if ($result){
 	echo json_encode(array(

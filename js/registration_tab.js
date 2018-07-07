@@ -13,13 +13,7 @@ var url, amt, btn;
 				iconCls:'icon-cancel',
 				plain:true,
 				disabled:true,
-				onClick:function(){
-					var obj = {
-						string:"Voiding Transaction?<br><p>Please Confirm!</p>",
-						icon:"icon-cancel"
-					};
-					dlg_confirmation(obj.string, obj.icon);
-					$('#dlg_transaction').dialog('open');
+				onClick:function(){	
 				}
 			});
 			// DONE
@@ -28,11 +22,13 @@ var url, amt, btn;
 				plain:true,
 				disabled:false,
 				onClick:function(){
+					var tr_id = $("#nbrbx_transid").numberbox("getValue");
 					$("#dlg_confirmation").dialog({
 						title:"Finalize"
 					}).dialog("center").dialog("open").panel({
 						iconCls:'icon-ok'
 					});
+					url = "php/save_transaction.php?tr_id="+tr_id;
 				}
 			});
 		// FORM
@@ -59,7 +55,7 @@ var url, amt, btn;
 								$('#nbrbx_bal').numberbox({disabled:false});
 								$('#txtbx_stid').combobox({disabled:true});
 
-								$('#ff_regtab').form('load',data);	
+								$('#fm_regtab').form('load',data);	
 								$('#dg_history').datagrid({url:'php/get_student_history.php?id='+stid});
 							}	
 						},'json');
@@ -144,8 +140,10 @@ var url, amt, btn;
 		border:false,
 		pagination:true,
 		singleSelect:true,
+		nowrap:false,
 		columns:[[
 			{field:'trans_id',title:'ID',width:60,fixed:true},
+			{field:'trans_type',title:'Type',width:60,fixed:true},
 			{field:'details',title:'Remarks',width:80,halign:'right'},
 			{field:'userid',title:'User',width:120,fixed:true},
 			{field:'created_dt',title:'Date',width:170,fixed:true},
@@ -198,11 +196,27 @@ var url, amt, btn;
 			text:'Ok',
 			plain:true,
 			handler:function(){
-				$("#fm_cmf").form('submit',{
-					url:'php/save_transaction.php',
-					onSubmit:function(param){
-						param.ttype = "type";
-						param.remarks = "remarks";
+				$("#fm_cmf").form("submit",{
+					url:url,
+					onSubmit:function(){
+						return $(this).form('validate');
+					},
+					success:function(result){
+						var result = eval('('+result+')');
+						if (result.errorMsg) {
+							$.messager.show({
+								title:'Error',
+								msg:result.errorMsg
+							});
+						}else{
+							$("#dlg_confirmation").dialog("close");
+							$("#dg_history").datagrid("loadData",[]); // CLEARS THE DATAGRID
+							$("#fm_regtab").form("clear"); // CLEARS THE FORM
+							$("#txtbx_stid").combobox("enable"); // RE-ENABLES THE SEARCH ID COMBOBOX
+
+							$("#btn_done, #btn_void, #btn_register, #btn_attendance").linkbutton("disable"); // DISABLES THE BUTTONS
+							$("#nbrbx_bal").numberbox("disable"); // DISABLES THE BUTTONS
+						}
 					}
 				});
 			}
@@ -218,8 +232,11 @@ var url, amt, btn;
 		// COMBOBOX TRANSACTION TYPE
 		$("#cc_ttype").combobox({
 			label:'Transaction Type',
-			labelWidth:120
-			// required:true
+			labelWidth:120,
+			required:true,
+			url:'php/cc_ttype.php',
+			valueField:'transaction_type_id',
+			textField:'description'
 		});
 
 		// TEXTBOX REMARKS

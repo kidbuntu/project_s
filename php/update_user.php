@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $userid = htmlspecialchars($_REQUEST['userid']);
 $firstname = htmlspecialchars($_REQUEST['firstname']);
 $lastname = htmlspecialchars($_REQUEST['lastname']);
@@ -9,7 +10,9 @@ $usr = $_SESSION['user'];
 
 include 'conn.php';
 
-$sql = "INSERT INTO users (userid,firstname,lastname,password,type,created_by,status) VALUES ('$userid','$firstname','$lastname','$pwd','$type','$usr','Active')";
+$sql = "UPDATE users SET userid='$userid',firstname='$firstname',lastname='$lastname',password='$pwd',type='$type',lastupdated_by='$usr',lastupdated_dt=NOW(),status='Active' WHERE userid='$userid'";
+
+// echo $sql;
 
 $result = mysqli_query($conn,$sql);
 if ($result){
@@ -18,6 +21,7 @@ if ($result){
 		'firstname' => $firstname,
 		'lastname' => $lastname,
 		'type' => $type,
+		'password' => $pwd
 	));
 } else {
 	echo json_encode(array('errorMsg'=>'Some errors occured.'));

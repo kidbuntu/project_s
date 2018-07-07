@@ -46,16 +46,16 @@ var url;
 	            if (row){
 	                $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
 	                    if (r){
-	                        // $.post('destroy_user.php',{id:row.id},function(result){
-	                        //     if (result.success){
-	                        //         $('#dg').datagrid('reload');    // reload the user data
-	                        //     } else {
-	                        //         $.messager.show({    // show error message
-	                        //             title: 'Error',
-	                        //             msg: result.errorMsg
-	                        //         });
-	                        //     }
-	                        // },'json');
+	                        $.post('php/destroy_student.php',{student_id:row.student_id},function(result){
+	                            if (result.success){
+	                                $('#dg_students').datagrid('reload');    // reload the user data
+	                            } else {
+	                                $.messager.show({    // show error message
+	                                    title: 'Error',
+	                                    msg: result.errorMsg
+	                                });
+	                            }
+	                        },'json');
 	                    }
 	                });
 	            }

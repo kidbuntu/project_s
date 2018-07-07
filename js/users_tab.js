@@ -22,11 +22,31 @@ var url;
 				if (row) {
 					$("#dlg_users").dialog("open").dialog("center").dialog("setTitle", "Edit User");
 					$("#fm_user").form("load",row);
+					url = "php/update_user.php";
 				}
 			}
 		},"-",{
 			iconCls:'icon-remove',
-			text:'Remove'
+			text:'Remove',
+			handler:function(){
+				var row = $('#dg_users').datagrid('getSelected');
+	            if (row){
+	                $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
+	                    if (r){
+	                        $.post('php/destroy_user.php',{userid:row.userid},function(result){
+	                            if (result.success){
+	                                $('#dg_users').datagrid('reload');    // reload the user data
+	                            } else {
+	                                $.messager.show({    // show error message
+	                                    title: 'Error',
+	                                    msg: result.errorMsg
+	                                });
+	                            }
+	                        },'json');
+	                    }
+	                });
+	            }
+			}
 		}],
 		columns:[[
 			{field:'userid',title:'User ID',width:80},
